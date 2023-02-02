@@ -24,7 +24,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   commentsByPostId[req.params.id] = comments;
 
   await axios
-    .post("http://localhost:4005/events", {
+    .post("http://event-bus-clusterip-svr:4005/events", {
       type: "CommentCreated",
       data: {
         id,
@@ -49,7 +49,7 @@ app.post("/events", async (req, res) => {
     comment.status = status;
 
     await axios
-      .post("http://localhost:4005/events", {
+      .post("http://event-bus-clusterip-svr:4005/events", {
         type: "CommentUpdated",
         data: {
           id,
@@ -64,5 +64,6 @@ app.post("/events", async (req, res) => {
 });
 
 app.listen(4001, () => {
+  console.log("v1000");
   console.log("listning on 4001");
 });
